@@ -27,7 +27,7 @@ The application should start right away.
 The application exposes a public API. In order to make the manual testing a bit easier, I've provided a 
 Postman collection containing the full API. You can find it [here](./trading_platform.postman_collection.json).
 
-Once the collection is imported in Postman, calling the endpoints should be easy.
+Once the collection is imported into Postman, calling the endpoints should be easy.
 
 I suggest to follow [this tutorial](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/)
 in order to import the collection into Postman.
