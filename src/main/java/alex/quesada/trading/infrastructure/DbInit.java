@@ -5,7 +5,6 @@ import alex.quesada.trading.domain.OrderType;
 import alex.quesada.trading.domain.Security;
 import alex.quesada.trading.domain.User;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 

@@ -1,11 +1,11 @@
 package alex.quesada.trading.controller.dto;
 
 import alex.quesada.trading.domain.OrderType;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
+@Builder
 public class OrderRequest {
     String userId;
     String securityId;

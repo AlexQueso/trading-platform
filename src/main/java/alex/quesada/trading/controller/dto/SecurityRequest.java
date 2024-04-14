@@ -1,10 +1,8 @@
 package alex.quesada.trading.controller.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class SecurityRequest {
     String name;
 }
