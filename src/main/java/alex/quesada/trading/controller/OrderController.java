@@ -20,7 +20,7 @@ public class OrderController {
     }
 
     @GetMapping("{orderId}")
-    public ResponseEntity<OrderResponse> getOrderById(@PathVariable("orderId") Long orderId) {
+    public ResponseEntity<OrderResponse> getOrderById(@PathVariable("orderId") String orderId) {
         return orderService.getOrderById(orderId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

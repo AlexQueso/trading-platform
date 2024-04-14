@@ -7,6 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SecurityResponse {
-    long id;
+    String id;
     String name;
 }

@@ -1,29 +1,27 @@
 package alex.quesada.trading.domain;
 
-import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-@Entity
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Document
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @OneToOne
+    private String id;
+    @DocumentReference
     private User user;
-
-    @OneToOne
+    @DocumentReference
     private Security security;
-
-    @Enumerated(EnumType.STRING)
     private OrderType type;
-
     private Double price;
     private Integer quantity;
     private Boolean fulfilled = false;
@@ -43,5 +41,9 @@ public class Order {
         } else {
             return OrderType.BUY;
         }
+    }
+
+    public boolean isBuyOrder() {
+        return this.type.equals(OrderType.BUY);
     }
 }

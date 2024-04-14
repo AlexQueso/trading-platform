@@ -21,7 +21,7 @@ public class TradeController {
     }
 
     @GetMapping("{tradeId}")
-    public ResponseEntity<TradeResponse> getTradeById(@PathVariable("tradeId") Long tradeId) {
+    public ResponseEntity<TradeResponse> getTradeById(@PathVariable("tradeId") String tradeId) {
         return tradeService.getTradeById(tradeId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

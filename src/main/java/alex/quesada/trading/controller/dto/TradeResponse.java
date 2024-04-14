@@ -7,9 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TradeResponse {
-    long id;
-    long sellOrderId;
-    long buyOrderId;
+    String id;
+    String sellOrderId;
+    String buyOrderId;
     double price;
     int quantity;
 }

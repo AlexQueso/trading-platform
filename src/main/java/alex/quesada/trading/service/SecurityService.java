@@ -22,7 +22,7 @@ public class SecurityService {
         this.securityMapper = securityMapper;
     }
 
-    public Optional<SecurityResponse> getSecurityById(Long securityId) {
+    public Optional<SecurityResponse> getSecurityById(String securityId) {
         return securityRepository.findById(securityId)
                 .map(securityMapper::securityToSecurityResponse);
     }

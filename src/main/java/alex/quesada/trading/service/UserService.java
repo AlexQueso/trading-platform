@@ -22,7 +22,7 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public Optional<UserResponse> getUserById(Long userId) {
+    public Optional<UserResponse> getUserById(String userId) {
         return userRepository.findById(userId)
                 .map(userMapper::userToUserResponse);
     }

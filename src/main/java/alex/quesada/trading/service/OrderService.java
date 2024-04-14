@@ -21,18 +21,19 @@ public class OrderService {
     private final OrderMapper orderMapper;
     private final SecurityRepository securityRepository;
     private final UserRepository userRepository;
-    private final TradeService tradeService;
+
+    private final TradeOccurrenceService tradeOccurrenceService;
 
     public OrderService(OrderRepository orderRepository, OrderMapper orderMapper, SecurityRepository securityRepository,
-                        UserRepository userRepository, TradeService tradeService) {
+                        UserRepository userRepository, TradeOccurrenceService tradeOccurrenceService) {
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
         this.securityRepository = securityRepository;
         this.userRepository = userRepository;
-        this.tradeService = tradeService;
+        this.tradeOccurrenceService = tradeOccurrenceService;
     }
 
-    public Optional<OrderResponse> getOrderById(Long orderId) {
+    public Optional<OrderResponse> getOrderById(String orderId) {
         return orderRepository.findById(orderId)
                 .map(orderMapper::orderToOrderResponse);
     }
@@ -45,36 +46,14 @@ public class OrderService {
 
     public OrderResponse saveNewOrder(OrderRequest orderRequest) {
         Order order = saveOrder(orderRequest);
-        checkPossibleTradingOrders(order);
+        tradeOccurrenceService.checkPossibleTradingOrders(order);
         return orderMapper.orderToOrderResponse(order);
     }
 
     private Order saveOrder(OrderRequest request) {
         User user = userRepository.findById(request.getUserId()).orElseThrow();
         Security security = securityRepository.findById(request.getSecurityId()).orElseThrow();
-        Order orderToSave = new Order(user, security, request.getType(), request.getPrice(), request.getQuantity());
-        return orderRepository.save(orderToSave);
-    }
-
-    synchronized private void checkPossibleTradingOrders(Order order) {
-        List<Order> oppositeTypeOrders = orderRepository.findBySecurityAndTypeAndFulfilled(
-                order.getSecurity(), order.getOppositeOrderType(), false);
-        if (!oppositeTypeOrders.isEmpty()) {
-            createTrade(order, getBestMatchingOrder(order, oppositeTypeOrders));
-        }
-    }
-
-    private Order getBestMatchingOrder(Order order, List<Order> oppositeTypeOrders) {
-        // logic to decide the best matching orders can be implemented here
-        return oppositeTypeOrders.getFirst();
-    }
-
-    private void createTrade(Order order, Order matchingOrder) {
-        tradeService.createTrade(order, matchingOrder);
-        order.setFulfilled(true);
-        matchingOrder.setFulfilled(true);
-        orderRepository.save(order);
-        orderRepository.save(matchingOrder);
+        return orderRepository.save(new Order(user, security, request.getType(), request.getPrice(), request.getQuantity()));
     }
 
 }

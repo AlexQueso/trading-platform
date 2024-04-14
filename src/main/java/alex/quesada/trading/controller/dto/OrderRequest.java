@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrderRequest {
-    long userId;
-    long securityId;
+    String userId;
+    String securityId;
     OrderType type;
     double price;
     int quantity;

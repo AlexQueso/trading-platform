@@ -1,7 +1,7 @@
 package alex.quesada.trading.infrastructure;
 
 import alex.quesada.trading.domain.Security;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface SecurityRepository extends JpaRepository<Security, Long> {
+public interface SecurityRepository extends MongoRepository<Security, String> {
 }

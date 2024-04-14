@@ -2,7 +2,6 @@ package alex.quesada.trading.service;
 
 import alex.quesada.trading.controller.dto.TradeResponse;
 import alex.quesada.trading.domain.Order;
-import alex.quesada.trading.domain.OrderType;
 import alex.quesada.trading.domain.Trade;
 import alex.quesada.trading.infrastructure.TradeRepository;
 import alex.quesada.trading.service.mapper.TradeMapper;
@@ -22,7 +21,7 @@ public class TradeService {
         this.tradeMapper = tradeMapper;
     }
 
-    public Optional<TradeResponse> getTradeById(Long tradeId) {
+    public Optional<TradeResponse> getTradeById(String tradeId) {
         return tradeRepository.findById(tradeId)
                 .map(tradeMapper::tradeToTradeResponse);
     }
@@ -33,15 +32,8 @@ public class TradeService {
                 .toList();
     }
 
-    public void createTrade(Order order, Order matchingOrder){
-        if (order.getType().equals(OrderType.SELL)) {
-            tradeRepository.save(buildTrade(order, matchingOrder));
-        } else {
-            tradeRepository.save(buildTrade(matchingOrder, order));
-        }
-    }
-
-    private Trade buildTrade(Order sellerOrder, Order buyerOrder) {
-        return new Trade(sellerOrder, buyerOrder, sellerOrder.getPrice(), buyerOrder.getQuantity());
+    public void createTrade(Order buyOrder, Order sellOrder) {
+        Trade trade = new Trade(sellOrder, buyOrder, sellOrder.getPrice(), buyOrder.getQuantity());
+        tradeRepository.save(trade);
     }
 }

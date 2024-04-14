@@ -1,26 +1,23 @@
 package alex.quesada.trading.domain;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-@Entity
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Document
 public class Trade {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @OneToOne
+    private String id;
+    @DocumentReference
     private Order sellOrder;
-
-    @OneToOne
+    @DocumentReference
     private Order buyOrder;
-
     private Double price;
     private Integer quantity;
 
