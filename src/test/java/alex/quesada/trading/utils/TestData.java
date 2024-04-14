@@ -3,7 +3,6 @@ package alex.quesada.trading.utils;
 import alex.quesada.trading.controller.dto.OrderRequest;
 import alex.quesada.trading.controller.dto.OrderResponse;
 import alex.quesada.trading.domain.Order;
-import alex.quesada.trading.domain.OrderType;
 import alex.quesada.trading.domain.Security;
 import alex.quesada.trading.domain.User;
 
@@ -41,8 +40,8 @@ public class TestData {
                 .build();
     }
 
-    public static User getUser(){
-        return  User.builder()
+    public static User getUser() {
+        return User.builder()
                 .id(USER_ID)
                 .name("userName")
                 .password("userPassword")

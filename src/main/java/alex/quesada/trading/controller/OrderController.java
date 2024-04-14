@@ -2,7 +2,6 @@ package alex.quesada.trading.controller;
 
 import alex.quesada.trading.controller.dto.OrderRequest;
 import alex.quesada.trading.controller.dto.OrderResponse;
-import alex.quesada.trading.controller.dto.UserResponse;
 import alex.quesada.trading.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

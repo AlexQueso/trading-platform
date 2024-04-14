@@ -1,7 +1,6 @@
 package alex.quesada.trading.service;
 
 import alex.quesada.trading.domain.Order;
-import alex.quesada.trading.domain.OrderType;
 import alex.quesada.trading.infrastructure.OrderRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
