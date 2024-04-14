@@ -10,12 +10,12 @@ import static alex.quesada.trading.domain.OrderType.BUY;
 
 public class TestData {
 
-    private static final String USER_ID = "userId";
-    private static final String SECURITY_ID = "securityId";
-    private static final String ORDER_ID = "orderId";
-    private static final String TRADE_ID = "tradeId";
-    private static final double PRICE = 100.0;
-    private static final int QUANTITY = 50;
+    public static final String USER_ID = "userId";
+    public static final String SECURITY_ID = "securityId";
+    public static final String ORDER_ID = "orderId";
+    public static final String TRADE_ID = "tradeId";
+    public static final double PRICE = 100.0;
+    public static final int QUANTITY = 50;
 
 
     public static OrderRequest getOrderRequest() {
