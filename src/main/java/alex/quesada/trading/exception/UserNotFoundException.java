@@ -1,0 +1,7 @@
+package alex.quesada.trading.exception;
+
+public class UserNotFoundException extends Exception{
+    public UserNotFoundException(String errorMessage) {
+        super(errorMessage);
+    }
+}
