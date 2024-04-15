@@ -9,7 +9,7 @@ In order to run the web app locally, the following software must be installed in
 * Apache Maven 3.9.6
 
 ### How to run the application
-First, the database needs to be up and running. In order to do so, you have to go to the go to the 
+First, the database needs to be up and running. In order to do so, you have to the go to the 
 [/infra](./infra) folder, open a terminal and run the following command:
 ```bash
 docker compose up
