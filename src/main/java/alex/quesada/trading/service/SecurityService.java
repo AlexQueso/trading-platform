@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @Log4j2
@@ -26,10 +25,8 @@ public class SecurityService {
         this.securityMapper = securityMapper;
     }
 
-    public Optional<SecurityResponse> getSecurityResponseById(String securityId) {
-        log.info("Retrieving security with id {} from database... ", securityId);
-        return securityRepository.findById(securityId)
-                .map(securityMapper::securityToSecurityResponse);
+    public SecurityResponse getSecurityResponseById(String securityId) {
+        return securityMapper.securityToSecurityResponse(getSecurityById(securityId));
     }
 
     public Security getSecurityById(String securityId) {

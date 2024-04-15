@@ -36,7 +36,7 @@ public class Order {
     }
 
     public OrderType getOppositeOrderType() {
-        if (this.type.equals(OrderType.BUY)) {
+        if (isBuyOrder()) {
             return OrderType.SELL;
         } else {
             return OrderType.BUY;

@@ -20,9 +20,7 @@ public class SecurityController {
 
     @GetMapping("{securityId}")
     public ResponseEntity<SecurityResponse> getSecurityById(@PathVariable("securityId") String securityId) {
-        return securityService.getSecurityResponseById(securityId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(securityService.getSecurityResponseById(securityId));
     }
 
     @GetMapping

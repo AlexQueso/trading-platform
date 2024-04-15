@@ -5,13 +5,14 @@ import alex.quesada.trading.controller.dto.OrderResponse;
 import alex.quesada.trading.domain.Order;
 import alex.quesada.trading.domain.Security;
 import alex.quesada.trading.domain.User;
+import alex.quesada.trading.exception.OrderNotFoundException;
 import alex.quesada.trading.infrastructure.OrderRepository;
 import alex.quesada.trading.service.mapper.OrderMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @Service
 @Log4j2
@@ -32,10 +33,15 @@ public class OrderService {
         this.tradeOccurrenceService = tradeOccurrenceService;
     }
 
-    public Optional<OrderResponse> getOrderById(String orderId) {
-        log.info("Retrieving order with id {} from database... ", orderId);
-        return orderRepository.findById(orderId)
-                .map(orderMapper::orderToOrderResponse);
+    public OrderResponse getOrderById(String orderId) {
+        try {
+            log.info("Retrieving order with id {} from database... ", orderId);
+            return orderRepository.findById(orderId)
+                    .map(orderMapper::orderToOrderResponse)
+                    .orElseThrow();
+        } catch (NoSuchElementException e) {
+            throw new OrderNotFoundException("Order with id " + orderId + " was not found.");
+        }
     }
 
     public List<OrderResponse> getAll() {

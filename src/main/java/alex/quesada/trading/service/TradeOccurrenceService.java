@@ -25,7 +25,7 @@ public class TradeOccurrenceService {
         if (!validOppositeTypeOrders.isEmpty()) {
             Order oppositeOrder = validOppositeTypeOrders.getFirst(); // logic to choose best matching order was not provided
             log.info("Valid opposite order was found for order wit id: {}", order.getId());
-            if (order.isBuyOrder()){
+            if (order.isBuyOrder()) {
                 createTrade(order, oppositeOrder);
             } else {
                 createTrade(oppositeOrder, order);
@@ -33,7 +33,7 @@ public class TradeOccurrenceService {
         }
     }
 
-    private List<Order> getValidOppositeTypeOrders(Order order){
+    private List<Order> getValidOppositeTypeOrders(Order order) {
         log.info("Getting possible opposite orders from database...");
         return orderRepository.findBySecurityAndTypeAndFulfilled(order.getSecurity(), order.getOppositeOrderType(), false)
                 .stream()
@@ -42,7 +42,7 @@ public class TradeOccurrenceService {
     }
 
     private boolean isCompatibleOrder(Order order, Order oppositeTypeOrder) {
-        if (order.isBuyOrder()){
+        if (order.isBuyOrder()) {
             return order.getPrice() >= oppositeTypeOrder.getPrice()
                     && order.getQuantity() <= oppositeTypeOrder.getQuantity();
         } else {

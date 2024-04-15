@@ -20,9 +20,7 @@ public class UserController {
 
     @GetMapping("{userId}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable("userId") String userId) {
-        return userService.getUserResponseById(userId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(userService.getUserResponseById(userId));
     }
 
     @GetMapping

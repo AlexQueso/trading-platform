@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class OrderControllerTest {
 
-    private static String ID = "1";
+    private static final String ID = "1";
 
     @Autowired
     private MockMvc mvc;
@@ -40,7 +40,7 @@ class OrderControllerTest {
     public void givenOrderId_whenGetOrderById_thenReturnCorrectOrderResponse() throws Exception {
         OrderResponse orderResponse = TestData.getOrderResponse();
         orderResponse.setId(ID);
-        Mockito.when(orderService.getOrderById(any())).thenReturn(Optional.of(orderResponse));
+        Mockito.when(orderService.getOrderById(any())).thenReturn(orderResponse);
 
         mvc.perform(get("/api/v1/orders/" + ID)
                         .contentType(MediaType.APPLICATION_JSON))

@@ -25,7 +25,7 @@ public class DbInit {
 
     @PostConstruct
     private void postConstruct(){
-        mongoTemplate.getDb().drop();
+        mongoTemplate.getDb().drop(); // empty the database
 
         Security wsd = new Security("WSD");
         securityRepository.save(wsd);

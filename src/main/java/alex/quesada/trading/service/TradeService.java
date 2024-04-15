@@ -3,13 +3,14 @@ package alex.quesada.trading.service;
 import alex.quesada.trading.controller.dto.TradeResponse;
 import alex.quesada.trading.domain.Order;
 import alex.quesada.trading.domain.Trade;
+import alex.quesada.trading.exception.TradeNotFoundException;
 import alex.quesada.trading.infrastructure.TradeRepository;
 import alex.quesada.trading.service.mapper.TradeMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @Service
 @Log4j2
@@ -23,10 +24,15 @@ public class TradeService {
         this.tradeMapper = tradeMapper;
     }
 
-    public Optional<TradeResponse> getTradeById(String tradeId) {
-        log.info("Retrieving trade with id {} from database... ", tradeId);
-        return tradeRepository.findById(tradeId)
-                .map(tradeMapper::tradeToTradeResponse);
+    public TradeResponse getTradeById(String tradeId) {
+        try {
+            log.info("Retrieving trade with id {} from database... ", tradeId);
+            return tradeRepository.findById(tradeId)
+                    .map(tradeMapper::tradeToTradeResponse)
+                    .orElseThrow();
+        } catch (NoSuchElementException e) {
+            throw new TradeNotFoundException("Trade with id " + tradeId + " was not found.");
+        }
     }
 
     public List<TradeResponse> getAll() {

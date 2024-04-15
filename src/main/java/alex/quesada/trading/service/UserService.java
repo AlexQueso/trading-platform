@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @Log4j2
@@ -25,10 +24,8 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public Optional<UserResponse> getUserResponseById(String userId) {
-        log.info("Retrieving user with id {} from database... ", userId);
-        return userRepository.findById(userId)
-                .map(userMapper::userToUserResponse);
+    public UserResponse getUserResponseById(String userId) {
+        return userMapper.userToUserResponse(getUserById(userId));
     }
 
     public User getUserById(String userId) {
@@ -39,7 +36,6 @@ public class UserService {
             throw new UserNotFoundException("User with id " + userId + " was not found.");
         }
     }
-
 
     public List<UserResponse> getAll() {
         log.info("Retrieving all users from database... ");
